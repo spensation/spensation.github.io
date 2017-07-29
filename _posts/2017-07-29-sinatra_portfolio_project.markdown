@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Sinatra Portfolio Project"
-date:   2017-07-29 22:19:08 +0000
+date:   2017-07-29 18:19:09 -0400
 ---
 
 
@@ -9,4 +9,4 @@ Working on this Sinatra Project has been a great learning experience.  It's rust
 
 I kicked around a couple of ideas before landing on my chore wheel app.  I was actually in Chicago, visiting an old roommate of mine from the group living in San Francisco days, when it occured to me.  I got excited about the idea and got to work almost immediately.  After a couple sessions working on the code, I was disheartened because it felt out of reach.  I was having a hard time understanding how to relate my tables in order to make this thing work.  
 
-I tried to start simply.  I ditched the chore wheel and created a task list.  It worked but I felt unsatisfied.  Eventually, I decided to pick up the chore wheel idea and try again.  It's taken me longer than I wanted to spedn on this project, but I like the result.  I think I will be able to expand on this app for my Rails project.  
+I tried to start simply.  I ditched the chore wheel and created a task list.  It worked but I felt unsatisfied.  Eventually, I decided to pick up the chore wheel idea and try again.  It's taken me longer than I wanted to spend on this project, but I like the result.  I think I will be able to expand on this app for my Rails project.  
