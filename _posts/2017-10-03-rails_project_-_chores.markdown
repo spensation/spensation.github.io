@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Rails Project - Chores!"
-date:       2017-10-03 23:03:49 +0000
+date:       2017-10-03 19:03:50 -0400
 permalink:  rails_project_-_chores
 ---
 
