@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Manipulating the DOM"
-date:       2018-01-04 00:44:11 +0000
+date:       2018-01-03 19:44:12 -0500
 permalink:  manipulating_the_dom
 ---
 
@@ -49,7 +49,7 @@ then I could define the other variables in relation to "$form" :
 ```
 
 
-I placed my newly defined varialbles where my alert had been: 
+I placed my newly defined variables where my alert had been: 
 
 ```$(function(){
     $("#new_task").on("submit", function(e){
@@ -74,7 +74,7 @@ I was on the precipice of manipulating the DOM!
 
 Now, how do I do that again?
 
-In this instance, I chose to use HandleBars, even though as I understand it, I may never look at HandleBars again after I learn React.  By invoking the prototype functionality native to JavaScript, I could I could create an instance of a task that would be populated by the data placed in a task-template that I would have to generate in my house_chores (the parent of my task list) view page.
+In this instance, I chose to use HandleBars, even though as I understand it, I may never look at HandleBars again after I learn React.  By invoking the prototype functionality native to JavaScript, I could I could create an instance of a task that would be populated by the data placed in a HandleBars task-template that I would have to generate in my house_chores (the parent of my task list) view page.
 The template looks like this:
 
 ```
