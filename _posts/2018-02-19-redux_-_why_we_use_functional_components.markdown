@@ -1,7 +1,7 @@
 ---
 layout: post
-title:      "Redux - Why we use Functional Components"
-date:       2018-02-19 21:05:57 +0000
+title:      "Redux - How to Use Functional Components"
+date:       2018-02-19 16:05:58 -0500
 permalink:  redux_-_why_we_use_functional_components
 ---
 
@@ -15,123 +15,18 @@ Updating State from multiple components can cause problems and we want to use st
 for example:
 
 ```
-RecipeListItem.js...
-
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { fetchRecipe } from '../actions/recipes.js';
-
-const RecipeListItem = (props) => {
-  return (
-  <div
-    className="recipe-card"
-    onClick={() => {
-                  props.fetchRecipe(props.recipeId);
-                  props.history.push(`/recipes/${props.recipeId}`)
-                }}>
-    <p className="recipe-title">{props.recipeTitle}</p>
-    <p className="recipe-category">{props.recipeCategory}</p>
-    <p className="recipe-serves">Yields: {props.recipeServes}</p>
-  </div>
-  )
-}
-
-function mapDispatchToProps(dispatch) {
-  return {fetchRecipe: bindActionCreators(fetchRecipe, dispatch)}
-}
-
-export const WrapperRecipeListItem = connect(null, mapDispatchToProps)(RecipeListItem);
-
-```
-
-This snippet is from my recipe sharing project.  Let's try to break down what is happening and examine why we can acheive our goals with a stateless component.
-
-The RecipeListItem is responsible for initiaing a call to the API and bringing back a truncated recipe listing.  I want to use these listings to fill individual recipe cards on the main page of my app.  Ultimately, the card can be clicked and we will go to the 'show-page'.  (I use quotes because in a SPA (single-page-application), we aren't really going anywhere, we are simply revealing, or hiding, components.
-
-The way I see it, this component has three parts:  dependencies, content, and functionality.
+import { Link } from 'react-router-dom';
 
 
-DEPENDENCIES:
-
-```
-import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { fetchRecipe } from '../actions/recipes.js';
-```
-
-This is pretty straight-forward.  In order for React Components to communicate with each other, you need to connect them.  RecipeListItem.js depends on these other files and functions to operate.  One tricky thing is the curly bracket notation seen above.  The difference between import React from 'react'  and the other three dependencies above is that connect, bindActionCreators and fetchRecipe are functions or variables found within the files they are being extracted from and have been explicitly exported as named variables.
-
-
-COMPONENT CONTENT:
-
-```
-const RecipeListItem = (props) => {
-  return (
-  <div
-    className="recipe-card"
-    onClick={() => {
-                  props.fetchRecipe(props.recipeId);
-                  props.history.push(`/recipes/${props.recipeId}`)
-                }}>
-    <p className="recipecard-title">{props.recipeTitle}</p>
-    <p className="recipecard-category">{props.recipeCategory}</p>
-    <p className="recipecard-serves">Yields: {props.recipeServes}</p>
-		<p classname="recipecard-total-time">{props.recipeTotalTime}</p>
-  </div>
-  )
-}
-```
-
-I define the const RecipeListItem and pass it props.  It consists of a div of class 'recipe-card' with an OnClick property that triggers the fetch request action and also pushes the props.history  to the route '/recipes/${props.recipeId}'.  The click result is to send the user to the 'Show Page' of the app, where the entire recipe will be displayed.
-
-The RecipeListItem div is populated with several props of the recipe: title, category, serves, and total_time.  The idea is to give the user some critical information about the recipe before they commit to a complete view.  
-
-
-FUNCTIONALITY:
-
-Now for the great mystery:  How do we make this happen, exactly?
-
-The short answer is this:  Through the magic of mapDispatchToProps and Connect.
-
-Let's tease it out a bit...
-
-```
-function mapDispatchToProps(dispatch) {
-  return {fetchRecipe: bindActionCreators(fetchRecipe, dispatch)}
-}
-
-export default connect(null, mapDispatchToProps)(RecipeListItem);
-
-```
-
-What is going on here?  I define a function, mapDispatchToProps(),  that takes dispatch as an argument and returns the action that I need called on my component.  In this case, fetchRecipe().  I also use bindActionCreators, which gives my functional component access to dispatch directly.  this function results in a call to recipes.js, which sits in my actions folder.  This is where all the actions associated with recipes live in my app. Once that fetchRecipe action is called, my recipe_recducer will look for a matching dispatch type.  If it finds one, a request will fire.
-
-Then I export the file in order for it to be picked up by RecipeList.js and  rendered to the page:
-
-```
-RecipeList.js...
-
-import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as actions from '../actions/recipes.js';
-import RecipeListItem from './RecipeListItem';
-
-
-
-const RecipeList = (props) => {
-  const renderRecipes = props.recipes.map(recipe =>
-    <RecipeListItem
-      history={props.history}
-      key={recipe.id}
-      recipeTitle={recipe.title}
-      recipeCategory={recipe.category}
-      recipeServes={recipe.serves}
-      recipeTotalTime={recipe.total_time}
-      recipeId={recipe.id}
-    />
+const RecipeGrid = (props) => {
+  const renderRecipes = props.recipes.recipes.map(recipe =>
+    <div className="recipe-card">
+      <h4>{recipe.title}</h4>
+      <p>{recipe.category}</p>
+      <p>Yields: {recipe.serves}</p>
+      <Link className="view-recipe-link" to={`/recipes/${recipe.id}`}>View Recipe</Link>
+    </div>
   );
 
   return (
@@ -141,20 +36,93 @@ const RecipeList = (props) => {
   )
 }
 
-function mapStateToProps(state) {
-  return {recipes: state.recipes.recipes}
-}
-
-function mapDispatchToProps(dispatch) {
-  return {actions: bindActionCreators(actions, dispatch)}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(RecipeList);
+export default RecipeGrid;
 
 ```
 
+This snippet is from my recipe sharing project.  Let's try to break down what is happening and examine why we can acheive our goals with a stateless component.
 
-In conclusion, Redux is not simple.  It is, however, very powerful and it does a brilliant job at seperating concerns.  Under Redux, each React component is responsible for it's share of the workload and is blissfully unaware of the state of the application.  all state is in the store and will be updated when the actions and reducers work in tandem to allow it to happen.  Functional Components will never know about it, and that's just the way it should be.
+The RecipeGrid is responsible for the presentation of the array of recipes.  It wants to display only the essential information about the recipe to the user.  Here the array of recipes is mapped and each recipe presents its title, category and serves attributes.  
+
+The RecipeGrid is the child of the RecipeGridPage.  This parent component is responsible for the functionality of the RecipeGrid, actually getting the data to the page.  It is connected to the store, Redux's state management processor, and can dispatch State and Dispatch to Props so that the props and actions of a recipe can be passed around throughout the application.  
+
+```
+import React from 'react';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { fetchRecipes } from '../actions/recipes';
+import RecipeGrid from '../components/RecipeGrid';
+
+
+class RecipeGridPage extends React.Component {
+  
+  componentDidMount() {
+      return this.props.fetchRecipes();
+  }
+
+  render(){
+    return (
+      <div>
+        <RecipeGrid recipes={this.props.recipes} history={this.props.history}/>      
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = (state) => {
+  return { recipes: state.recipes };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    fetchRecipes: fetchRecipes,
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeGridPage);
+
+```
+
+So, the parent component, RecipeGridPage, needs the dependencies to connect to the store. 
+
+```
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+```
+
+These allow us to utilize the following lines of code that are the lynchpin that make React so powerful:
+
+```
+const mapStateToProps = (state) => {
+  return { recipes: state.recipes };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    fetchRecipes: fetchRecipes,
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeGridPage);
+```
+
+by mapping state to props and dispatch to props, React allows us to call functions on these elements throughout the application.  
+
+
+The other element of this parent component that is critical to making the stateless RecipeGrid component work is the ability to directly pass props to the child component as here, in the render call:
+
+```
+render(){
+    return (
+      <div>
+        <RecipeGrid recipes={this.props.recipes} history={this.props.history}/>      
+      </div>
+    )
+  }
+```
+By working together with thier parent components. functional, or stateless components are an efficient tool to bring execptional user experiences to the page.
 
 
 
