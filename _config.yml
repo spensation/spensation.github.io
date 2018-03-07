@@ -4,7 +4,7 @@ header-img: img/home-bg.png
 email: spencevans@gmail.com
 copyright_name: spensation
 description: > # this means to ignore newlines until "baseurl:"
-  A journey to clarity
+  An effort to synthesize an incredible amount of information.
 baseurl: "" # the subpath of your site, e.g. /blog
 twitter_username: 
 github_username:  spensation
