@@ -1,11 +1,11 @@
 ---
 layout: post
 title:      "I'll make dinner, I promise"
-date:       2018-03-10 20:07:04 +0000
+date:       2018-03-10 15:07:04 -0500
 permalink:  ill_make_dinner_i_promise
 ---
 
-## How async JS works like an efficient chef
+## **How async JS works like an efficient chef**
 
 If you have ever made a nice dinner for your friends or family, you can understand how asyncronous JavaScript works.
 
