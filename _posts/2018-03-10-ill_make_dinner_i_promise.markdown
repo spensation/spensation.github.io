@@ -5,7 +5,7 @@ date:       2018-03-10 15:07:04 -0500
 permalink:  ill_make_dinner_i_promise
 ---
 
-## **How async JS works like an efficient chef**
+**How async JS works like an efficient chef**
 
 If you have ever made a nice dinner for your friends or family, you can understand how asyncronous JavaScript works.
 
@@ -62,7 +62,7 @@ That's not gonna get my family fed any time soon!  Any home chef worth their sal
 
 This action of going back to the chicken when it’s ready is analogous to the JavaScript callback function, and our oven can quite literally call us back with a timer! This allows us to go on and do other tasks and then come back to the chicken when it is ready for us.  
 
-### Asyncronous Make Dinner
+**Asyncronous Make Dinner**
 
 Lets start over and this time we will work asynchronously.
 
@@ -92,7 +92,7 @@ serveWine();``
 ```
 
 
-### Move over Callback, here comes the Promise
+**Move over Callback, here comes the Promise**
 
 Now that we have a general idea of how async works with callbacks, lets talk about the Promise object.   Callback functions have a tendency to get complicated.  Imagine  a longer list of tasks that all rely on each other's status to get completed. Now imagine that all those tasks have callback functions.   That is known as Callback Hell.  
 
