@@ -1,6 +1,6 @@
 ---
 layout: post
-title:      "React/Redux: Delete a Record from a Rails API"
+title:      "React/Redux: Delete a Record from a Rails API, Part I"
 date:       2018-07-22 21:59:09 -0400
 permalink:  react_redux_delete_a_record_from_a_rails_api
 ---
@@ -12,7 +12,7 @@ In order to hone my newly acquired React/Redux skills, I have been working on a 
 Well, I had an pretty easy time getting the app to the point where I could create an record of a nap, post it to the api and then view the index of naps.  I decided to go a step further... I want to be able to delete a nap.
 
 
-# Building the UI:
+## Building the UI:
 
 In order to delete the nap, we need the User to be able to make that choice.  We will add a 'Delete' button to the Nap Component:
 
@@ -47,7 +47,7 @@ Because the function that we will build to handle this delete event needs to dea
 ```
 
 
-# Handling the event:
+## Handling the event:
 
 Over in our Container we will pass the onClick event props of onDelete to each instance of Nap and set it equal to a function we will define named  deleteThisNap().
 
