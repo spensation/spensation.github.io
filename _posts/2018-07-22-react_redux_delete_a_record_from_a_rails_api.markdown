@@ -34,7 +34,7 @@ export default Nap;
 
 ```
 
-Because the function that we will build to handle this delete event needs to deal with state (or the Redux store, in this case) we will need to pass the functionality onClick attribute onto a stateful Container.  That was a mouthful!  It takes a little while to wrap your head around it, but in practice, it's pretty straightforward: we can do it with props!
+Because the function that we will build to handle this delete event needs to deal with state (or the Redux store, in this case) we will need to pass the functionality of the onClick attribute onto a stateful Container.  That was a mouthful!  It takes a little while to wrap your head around this idea, but in practice, it's pretty straightforward: we can do it with props!
 
 *from Nap.js*
 ```
@@ -49,7 +49,7 @@ Because the function that we will build to handle this delete event needs to dea
 
 **Handling the event:**
 
-Over in our Container we will pass the onClick event props of onDelete to each instance of Nap and set it equal to a function we will define named  deleteThisNap().
+Over in our Container, to each instance of Nap,  we will pass the onClick event the props of onDelete  and set it equal to a function we will define named  deleteThisNap().
 
 *from NapPage.js*
 ```
@@ -84,7 +84,7 @@ render() {
 	
 ```
 
-In the same container file, let's define our function.  There a re a couple of things to keep in mind here.  First, because it is an event handler, we need to pass an event  to the function.  This will allow us to bind the function to this event, or button click.  We also need to hit the API route to delete the nap, which will require a specific nap_id.  In order to acomplish this, we can use the index of the map function to define a variable called napId that we will then pass to the function that dispatches the DELETE action. 
+In the same container file, let's define our function.  There are a couple of things to keep in mind here.  First, because it is an event handler, we need to pass an event  to the function.  This will allow us to bind the function to this event, or button click.  We also need to hit the API route to delete the nap, which will require a specific nap_id.  In order to accomplish this, we can use the index of the map function to define a variable called napId that we will then pass to the function that dispatches the DELETE action. 
 
 
 *from NapPage.js*
@@ -182,9 +182,9 @@ export function deleteNap(napId) {
       return fetch(`http://localhost:3001/api/v1/naps/${napId}`, {
           method: "DELETE",
       }).then(response => {
-			// Upon dispatching DELETE action, set action.payload to 'deletedNapId' 
+			// Upon dispatching DELETE action, set 'deletedNapId' to napId.  This will be used in the      reducer to filter state
         if (response.ok) dispatch({ type: 'DELETE_NAP_FULFILLED', deletedNapId: napId })
-      })
+      }) 
     };
   };
 ```
