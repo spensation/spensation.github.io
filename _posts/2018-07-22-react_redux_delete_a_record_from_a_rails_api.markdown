@@ -182,6 +182,7 @@ export function deleteNap(napId) {
       return fetch(`http://localhost:3001/api/v1/naps/${napId}`, {
           method: "DELETE",
       }).then(response => {
+			// Upon dispatching DELETE action, set action.payload to 'deletedNapId' 
         if (response.ok) dispatch({ type: 'DELETE_NAP_FULFILLED', deletedNapId: napId })
       })
     };
@@ -266,7 +267,53 @@ export default connect(mapStateToProps, mapDispatchToProps)(NapPage);
 ```
 
 
+**En fin, the reducer**
 
+At last, we arrive at the final piece of the puzzle: naps_reducer.js.  Like actions/naps.js, this file is already functioning to fetch and add naps.  We will simply extend the case statement to handle deleting a record of our database.  
+
+*from reducers/naps_reducer.js*
+```
+export function napReducer(state = {
+  isFetching: false,
+  posting: false,
+  naps: [],
+  nap: {},
+  
+}, action) {
+  switch(action.type) {
+    case 'LOADING_NAPS':
+      return {
+        ...state,
+        isFetching: true
+      }
+
+    case 'FETCH_NAPS':
+      console.log('inFetch_naps', action.payload)
+      return {
+        naps: action.payload,
+          isFetching: false
+          
+        }
+ 
+    case 'ADD_NAP_PENDING':
+      return {...state, posting: true}
+    case 'ADD_NAP_FULFILLED':
+      return Object.assign({}, state, {nap: state.naps.concat(action.payload) });
+    
+		// Handle deletion here
+    case 'DELETE_NAP_FULFILLED':
+		// Define variable to filter state by comparing nap.id to action.payload 
+      const naps = state.naps.filter(nap => nap.id !== parseInt(action.deletedNapId, 10));
+      return { naps };
+    default:
+      return state;
+
+  }
+}
+
+```
+
+And that's it.  Simple, right?
 
 
 
