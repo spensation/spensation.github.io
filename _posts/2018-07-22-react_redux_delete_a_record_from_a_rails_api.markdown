@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "React/Redux: Delete a Record from a Rails API"
-date:       2018-07-23 01:59:07 +0000
+date:       2018-07-22 21:59:09 -0400
 permalink:  react_redux_delete_a_record_from_a_rails_api
 ---
 
@@ -49,7 +49,7 @@ Because the function that we will build to handle this delete event needs to dea
 
 #### Handling the event:
 
-Over in our Container we will pass the onClick event props of onDelete to each instance of Nap.
+Over in our Container we will pass the onClick event props of onDelete to each instance of Nap and set it equal to a function we will define named  deleteThisNap().
 
 *from NapPage.js*
 ```
@@ -69,7 +69,7 @@ render() {
 								
 								// pass props from onClick event in Nap.js 
 								
-                onDelete={this.deleteNap.bind(this, index)}
+                onDelete={deleteThisNap()}
                 >{nap.name}</Nap>)
             })
           }
@@ -83,6 +83,63 @@ render() {
 	...
 	
 ```
+
+In the same container file, let's define our function.  There a re a couple of things to keep in mind here.  First, because it is an event handler, we need to pass an event  to the function.  This will allow us to bind the function to this event, or button click.  We also need to hit the API route to delete the nap, which will require a specific nap_id.  In order to acomplish this, we can use the index of the map function to define a variable called napId that we will then pass to the function that dispatches the DELETE action. 
+
+
+*from NapPage.js*
+```
+...
+
+class NapPage extends Component {
+
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      naps: [],
+    }
+
+  }
+
+  componentDidMount() {
+    return this.props.fetchNaps()
+  }
+
+  
+  deleteThisNap = (index, e) => {
+	  // define variable used to to pass id to the api
+    const napId = this.props.naps[index].id;
+		// pass napId to the function that dispatches the action to the Redux store
+    this.props.deleteNap(napId)  
+  }
+
+...
+...
+
+
+<div className="nap">
+          {
+            this.props.naps.map((nap, index) => {
+              return(<Nap 
+                key={nap.id}
+                description={nap.description}
+								
+								// updated onDelete prop with binding and args
+								
+                onDelete={this.deleteThisNap.bind(this, index)}
+                >{nap.name}</Nap>)
+            })
+          }
+        </div>
+
+...
+```
+
+#### Dispatching the Action:
+
+
 
 
 
