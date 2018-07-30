@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "JS Random Choice"
-date:       2018-07-30 03:49:44 +0000
+date:       2018-07-29 23:49:45 -0400
 permalink:  js_random_choice
 ---
 
@@ -10,7 +10,7 @@ I was recently working on a gamelike project just for fun.  It was an attempt to
 
 ## The Structure:
 
-The html elements that I am working with are really basic. 
+The html elements that I am working with are really basic.  There are mouseover events on three functions that are defined in the script tag; fun(), andFun, and moreFun().  They are all bound to this, or the mouseover event.
 
 *index.html*
 ```
@@ -83,6 +83,30 @@ Essentially, I have four flexboxes that are of cetain dimensions and are either 
 ## The Javascript:
 
 Unlike in Python, I can't just import random and call random on an array.  So, what do we do?
+
+We will focus on the function that controls the color changing in this example, moreFun().  
+
+Inside the function, we start by defining an array of colors:
+
+```
+
+	function andFun(e) {
+		const colors = [
+			"black", 
+			"red", 
+			"aquamarine", 
+			"green",
+			"lime",
+			"gray",
+			"darkmagenta",
+			"firebrick",
+			"seagreen",
+			"skyblue"
+		];
+
+```
+
+Next we can do the math!  We will define a variable of the random choice that will select one of the colors in the array by its index.  To generate a random index number we call Math.random, which return a number between 0 and 1, and multiply that the length of the array.  We also have to use Math.round to round the result to the nearest integer.
 
 
 
