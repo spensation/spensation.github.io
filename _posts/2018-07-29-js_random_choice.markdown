@@ -106,7 +106,13 @@ Inside the function, we start by defining an array of colors:
 
 ```
 
-Next we can do the math!  We will define a variable of the random choice that will select one of the colors in the array by its index.  To generate a random index number we call Math.random, which return a number between 0 and 1, and multiply that the length of the array.  We also have to use Math.round to round the result to the nearest integer.
+Next we can do the math!  We will define a variable of the random choice that will select one of the colors in the array by its index.  To generate a random index number we call Math.random, which return a number between 0 and 1, and multiply that the length of the array.  We also have to use Math.round to round the result to the nearest integer.  Put it all together and it looks like this:
 
+```
+const randomChoice = colors1[Math.floor(colors.length * Math.random())];
+```
+
+
+Now we are ready to assign one of these random colors to a set of my box elements. to do this, 
 
 
