@@ -113,5 +113,23 @@ const randomChoice = colors1[Math.floor(colors.length * Math.random())];
 ```
 
 
-Now we are ready to assign one of these random colors to a set of my box elements. In order to do this, we will create a variable and set it to a query selector 
+Now we are ready to assign one of these random colors to a set of my box elements. In order to do this, we will create a variable and set it to a query selector that will collect all the boxes with the class 'blue'.  
+
+
+```
+var blueBoxes = document.querySelectorAll(".blue");
+
+```
+
+
+Now that we have the elements and the random color, we can simply iterate over the blueBoxes and set each of thier backgroundColor attributes to a new color:
+
+```
+
+		for (var i =0; i < blueBoxes.length; i++) {
+			blueBoxes[i].style.backgroundColor = randomChoice;
+		}
+```
+
+And now, when the magic ball is moused over, we have orange boxes and  boxes of some other color.  Awesome!
 
