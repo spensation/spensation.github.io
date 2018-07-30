@@ -10,7 +10,7 @@ I was recently working on a gamelike project just for fun.  It was an attempt to
 
 ## The Structure:
 
-The html elements that I am working with are really basic.  There are mouseover events on three functions that are defined in the script tag; fun(), andFun, and moreFun().  They are all bound to this, or the mouseover event.
+The html elements that I am working with are really basic.  There are mouseover events on three functions that are defined in the script tag; fun(), andFun(), and moreFun().  They are all bound to this, or the mouseover event.
 
 *index.html*
 ```
@@ -33,7 +33,7 @@ The html elements that I am working with are really basic.  There are mouseover 
 
 ##  The Style:
 
-In the stylesheet, I have a few properties set to each contaier and box item, respectively.:
+In the stylesheet, I have a few properties set to each container and box item, respectively.:
 
 *style.css*
 ```
@@ -113,6 +113,5 @@ const randomChoice = colors1[Math.floor(colors.length * Math.random())];
 ```
 
 
-Now we are ready to assign one of these random colors to a set of my box elements. to do this, 
-
+Now we are ready to assign one of these random colors to a set of my box elements. In order to do this, we will create a variable and set it to a query selector 
 
