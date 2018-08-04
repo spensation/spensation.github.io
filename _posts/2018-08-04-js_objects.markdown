@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "JS Objects"
-date:       2018-08-04 07:07:09 +0000
+date:       2018-08-04 03:07:10 -0400
 permalink:  js_objects
 ---
 
@@ -28,19 +28,28 @@ const cat = {
 		 breed: 'Maine Coon',
 		 eyes: 'blue',
 		 gender: 'female',
+		 hobbies: ['sleeping', 'cuddling', 'hunting'],
+		 meals: {
+		    breakfast: 'kibble',
+				dinner: 'tuna'
+		 }
 		 greeting: function() {
 		     alert('Meow')
 			}
 };
 ```
 
-Names and values are delineated by a colon and members are seperated by a comma.  Also notice that a function can be a member of an object.
+As you can see, an object like this one,  a 'literal object', can be made up of nearly anything.  We have strings, integers, an array of strings, another object and a function packed in this little cat.  
+Names and values are delineated by a colon and members are seperated by a comma. 
+
 
 Now we have some data to play with!
 
 To access the data we two options, dot notation and bracket notation.  Dot notation is the more readable of the two but bracket notation is a powerful tool used to compute values.  It's functionality goes far beyond that of dot notation.
 
-But I digress, here is some dot notation:
+**Dot Notation**
+
+In order to access the value inside the object, first call the object itself(cat), then a dot(.), followed by the member name whose value you wish to retrieve.
 
 ```
 cat.name;
