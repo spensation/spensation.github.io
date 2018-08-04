@@ -32,9 +32,9 @@ const cat = {
 		 meals: {
 		    breakfast: 'kibble',
 				dinner: 'tuna'
-		 }
+		 },
 		 greeting: function() {
-		     alert('Meow')
+		     alert(this.name + 'says Meow!')
 			}
 };
 ```
@@ -56,9 +56,13 @@ cat.name;
 
   *=> 'Mittens'*
 	
-cat.eyes;
+cat.hobbies[0];
 
-  *=> 'blue'*
+  *=> 'sleeping'*
+	
+cat.meals.dinner;
+
+*  => 'tuna'*
 	
 ```
 
@@ -67,8 +71,25 @@ We can use dot notation to assign a new value to a name, as such:
 ```
 cat.name = 'Fluffy';
 
- => "Fluffy"
+ *=> "Fluffy"*
  
+```
+
+
+**Bracket Notation**
+
+While bracket notation is less readable, it can be a good choice to usein select situations.
+
+To simply access a value of the object:
+
+```
+cat['name'];
+
+ * => 'Fluffly'*
+	
+cat['meals']['dinner'];
+
+ * => 'tuna'*
 ```
 
 
