@@ -78,7 +78,7 @@ cat.name = 'Fluffy';
 
 **Bracket Notation**
 
-While bracket notation is less readable, it can be a good choice to usein select situations.
+While bracket notation is less readable, it can be a good choice to use in select situations.
 
 To simply access a value of the object:
 
@@ -91,6 +91,22 @@ cat['meals']['dinner'];
 
  * => 'tuna'*
 ```
+Bracket notation acan also be used to create new members dynamically.
+
+```
+cat['personality'] = 'playful';
+```
+
+Now we have a new member for our cat object, personality.  Let's say we wanted our users to be able to add features to thier cat.  We can use brackets notation for that, too!  If we could acquire the member name and value through input fields and store the user's data as variables, we can assign them to the object like this:
+
+```
+let userInputName = 'cuteness';
+let userInputValue = 10;
+
+cat['cuteness'] = 10;
+```
+
+Just like that, we have a new member that the user created dynamically.  
 
 
 
