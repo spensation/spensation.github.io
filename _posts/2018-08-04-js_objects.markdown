@@ -1,6 +1,6 @@
 ---
 layout: post
-title:      "JS Objects"
+title:      "JS Objects - the basics"
 date:       2018-08-04 03:07:10 -0400
 permalink:  js_objects
 ---
