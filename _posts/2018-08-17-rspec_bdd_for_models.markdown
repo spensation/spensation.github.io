@@ -133,7 +133,6 @@ mkdir models
 Now we can create files for our three specs.
  
 Lets start with the country model.  A country has a name,  has_many appellations and has_many producers through appellations.  When we write the Rspec test, we will simply describe these requirements and associations by creating instances of the associated models and defining the expectations of their existence.  That was a mouthful!  It should become clear in one minute. 
-Always require 'rails_helper'!
 
 *spec/models/country_spec.rb*
 ```
