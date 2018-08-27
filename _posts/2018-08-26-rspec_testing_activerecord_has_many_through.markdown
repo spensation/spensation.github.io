@@ -189,7 +189,7 @@ describe Country do
 
 	context "associations" do
 		it { should have_many(:appellations) }
-		it { should have_many(:producers) }
+		it { should have_many(:producers).through(:appellations) }
 
 	end 
 
