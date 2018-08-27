@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "RSpec testing ActiveRecord has_many  :through"
-date:       2018-08-27 03:27:04 +0000
+date:       2018-08-26 23:27:05 -0400
 permalink:  rspec_testing_activerecord_has_many_through
 ---
 
@@ -111,30 +111,95 @@ Notice that we can pass the factories the instance of another, associated factor
 
 Ok, back to that country factory...
 
-This is where things get tricky.  There are a couple of things to parse in this next block of code.  
+This is where things get tricky.  There are a couple of things to parse in this next section of code.  
 
 *wine-cellar/spec/factories/countries.rb*
 ```
 
 FactoryBot.define do
-	 factory :country do 
-		  name { Faker::Address.country }
+	factory :country do 
+		name { Faker::Address.country }
 
-		  trait :country_with_producers do
-			   transient do
-				    producers_count 5  
-			   end
+		trait :country_with_producers do
+			 transient do
+				  producers_count 5  
+			 end
 
-			   after :create do |country, evaluator|
-				     FactoryBot.create_list :appellation, evaluator.producers_count, country: country
-			   end
-		   end
-	 end
+			 after :create do |country, evaluator|
+				  FactoryBot.create_list :appellation, evaluator.producers_count, country: country
+			 end
+		 end
+	end
 end
 
 ```
 
-So, this factory create a country and gives it a name.  That much is clear.  Then, we define a new trait for country, :country_with_producers.  This will allow us to not only test a country but also test a country in the contest of this new trait,  with producers.  We will get to the actual tests in a minute.  Now we are still in the factory, generating the objects to test.
+So, this factory creates a country and gives it a name.  That much is clear.  Then, we define a new trait for country, :country_with_producers.  This will allow us to not only test a country but also test a country in the contest of this new trait,  with producers.  We will get to the actual tests in a minute.  Now we are still in the factory, generating the objects to test.
+
+In the trait block, we use something called transient.  What the heck is that?  Fatory Bot provides us with a few special methods to handle the creation of test data.  Transient allows us to generate an object, or objects, for use within the context of the factory, without having to save the instances to the database.  In the example above, in the context of the country_with_producers, our factory will generate 5 producers in a temporary manner.  We define that number, 5. in the next line of code: producers_count 5.
+
+In the callback, which begins after :create do..., we pass a second argument into the block, evaluator.  This gives us access to the transient property that we generated in the previous block of code, producers_count.  Because countries have producers through appellations, we will create a list of appellations here, reflecting the direct relationship between country and appellation.  
+
+
+
+With all of this in place, we can start testing our model.
+
+In order to write very concise RSpec tests, it is best to use the shoulda-matchers gem.
+
+*Gemfile*
+```
+group :development, :test do
+  ...
+  gem 'shoulda-matchers', '~> 3.1'
+end
+```
+
+run bundle install
+
+We also need to configure shoulda-matchers in the rails_helper file.
+
+*wine-cellar/spec/support/rails_helper.rb*
+```
+RSpec.configure do |config|
+
+...
+
+
+Shoulda::Matchers.configure do |config|
+    config.integrate do |with|
+      # Choose a test framework:
+      with.test_framework :rspec
+      with.library :rails
+    end
+  end
+end
+
+```
+
+Now we can write some really elequent tests.  
+
+*wine-cellar/spec/models/country_spec.rb*
+```
+describe Country do
+
+	context "validations" do
+		it { should validate_presence_of :name }
+
+	end
+
+	context "associations" do
+		it { should have_many(:appellations) }
+		it { should have_many(:producers) }
+
+	end 
+
+	it "has a valid factory" do
+		expect(build(:country)).to be_valid
+	end
+end
+```
+
+And there you have it.
 
 
 
